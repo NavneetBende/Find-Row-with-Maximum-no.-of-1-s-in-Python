@@ -1,0 +1,35 @@
+def first(arr, low, high):
+    
+    if high >= low:
+        
+        mid = low + (high - low) // 2
+        if (mid == 0 or arr[mid - 1] == 0) and arr[mid] == 1:
+            return mid
+
+        elif arr[mid] == 0:
+            return first(arr, (mid + 1), high)
+
+        else:
+            return first(arr, low, (mid - 1))
+
+    return -1
+
+
+Matrix = [[0, 0, 0, 1],
+          [0, 1, 1, 1],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0]]
+
+max_count, row = 0, -1
+
+for i in range(4):
+
+    count = 0
+    x = first(Matrix[i], 0, 3)
+    if x != -1:
+        count = 4 - x
+    if count > max_count:
+        max_count = count
+        row = i
+
+print("Row with maximum 1's is :", row + 1)
